@@ -15,5 +15,6 @@ namespace BackEnd.Models
         public decimal InvoiceLasPaidAmount { get; set; } = 0.00M;
         public DateTime? InvoiceLastPaidOn { get; set; } = null;
         public int ClientAccountId { get; set; }
+        public ClientAccount ClientAccount{get;set;}
     }
 }

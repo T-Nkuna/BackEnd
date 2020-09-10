@@ -15,6 +15,7 @@ namespace BackEnd
             CreateMap<ClientAccountDto, ClientAccount>();
             CreateMap<ClientAccount, ClientAccountDto>();
             CreateMap<ClientInvoiceDto, ClientInvoice>();
+            CreateMap<ClientInvoice,ClientInvoiceDto>();
         }
     }
 }

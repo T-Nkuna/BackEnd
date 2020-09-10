@@ -37,6 +37,7 @@ namespace BackEnd
 
             services.AddAutoMapper(typeof(Startup));
             services.AddScoped<IClientAccountsService, ClientAccountsService>();
+            services.AddScoped<IClientInvoicesService, ClientInvoicesService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
