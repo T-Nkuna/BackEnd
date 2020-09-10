@@ -5,30 +5,44 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { NavMenuComponent } from './nav-menu/nav-menu.component';
-import { HomeComponent } from './home/home.component';
-import { CounterComponent } from './counter/counter.component';
-import { FetchDataComponent } from './fetch-data/fetch-data.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NbThemeModule, NbLayoutModule, NbSidebarModule, NbButtonModule,NbIconModule } from '@nebular/theme';
+import { NbEvaIconsModule } from '@nebular/eva-icons';
+import { TableComponent } from './components/table/table.component';
+import { ClientsComponent } from './components/clients/clients.component';
+import { ClientsRouteResolverService } from './routeResolvers/clients-route-resolver.service';
+import { ClientService } from './services/client.service';
+import { IconButtonComponent } from './components/icon-button/icon-button.component';
+import { CreateClientAccountComponent } from './components/create-client-account/create-client-account.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavMenuComponent,
-    HomeComponent,
-    CounterComponent,
-    FetchDataComponent
+    TableComponent,
+    ClientsComponent,
+    IconButtonComponent,
+    CreateClientAccountComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'counter', component: CounterComponent },
-      { path: 'fetch-data', component: FetchDataComponent },
-    ])
+      { path: "clients", component: ClientsComponent, resolve: { clientsAccounts: ClientsRouteResolverService } },
+      { path: "createclient", component: CreateClientAccountComponent },
+      { path: '', pathMatch: 'full', redirectTo: "clients" },
+    ], { useHash:true }),
+    BrowserAnimationsModule,
+    NbThemeModule.forRoot({ name: 'cosmic' }),
+    NbLayoutModule,
+    NbEvaIconsModule,
+    NbSidebarModule,
+    NbButtonModule,NbIconModule
   ],
-  providers: [],
+  providers: [
+    ClientsRouteResolverService,
+    ClientService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

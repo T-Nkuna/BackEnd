@@ -34,10 +34,16 @@ namespace BackEnd
             {
                 options.UseSqlServer(Configuration.GetConnectionString("Default"));
             });
-
+            services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            }));
             services.AddAutoMapper(typeof(Startup));
             services.AddScoped<IClientAccountsService, ClientAccountsService>();
             services.AddScoped<IClientInvoicesService, ClientInvoicesService>();
+          
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,7 +59,7 @@ namespace BackEnd
             app.UseRouting();
 
             app.UseAuthorization();
-
+            app.UseCors("MyPolicy");
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

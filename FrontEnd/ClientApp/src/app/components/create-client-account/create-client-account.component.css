@@ -1,0 +1,27 @@
+.app-create-client-account-form  {
+  display: flex;
+  width: 100%;
+  max-width: 640px;
+  flex-direction: column;
+  align-items: center;
+  margin:auto;
+}
+
+.app-create-client-account-form-form-field{
+    display:grid;
+    grid-template-columns:128px 1fr;
+    column-gap:1em;
+    padding:0.25em;
+}
+
+.app-create-client-account-form-form-field input{
+   
+}
+
+.app-create-client-account-form-form-button-container {
+  display: flex;
+  width: 100%;
+  max-width: 640px;
+  margin:auto;
+  align-items:center;
+}

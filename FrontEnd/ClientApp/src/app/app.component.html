@@ -1,6 +1,10 @@
-<body>
-  <app-nav-menu></app-nav-menu>
-  <div class="container">
+<nb-layout>
+
+  <nb-layout-header fixed>
+    <h4><span>{{configurationService.displayedPageTitle}}</span></h4>
+  </nb-layout-header>
+  <nb-layout-column>
     <router-outlet></router-outlet>
-  </div>
-</body>
+  </nb-layout-column>
+  
+</nb-layout>
