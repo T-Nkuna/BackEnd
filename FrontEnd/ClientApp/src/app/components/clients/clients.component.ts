@@ -4,6 +4,7 @@ import { ConfigurationService } from '../../services/configuration.service';
 import { ClientAccount } from '../../models/ClientAccount';
 import { RowAction } from '../table/table.component';
 import { ClientService } from '../../services/client.service';
+import { InvoiceService } from '../../services/invoice.service';
 
 @Component({
   selector: 'app-clients',
@@ -16,7 +17,12 @@ export class ClientsComponent implements OnInit {
   rowActions: RowAction[] = [
 
   ];
-  constructor(private _activatedRoute: ActivatedRoute, private _router: Router, private _congigurationService: ConfigurationService,private _clientService:ClientService) {
+  constructor(
+    private _activatedRoute: ActivatedRoute,
+    private _router: Router,
+    private _congigurationService: ConfigurationService,
+    private _clientService: ClientService
+    ) {
     this.rowActions = [
       { icon: "eye-outline", text: "", rowclick: this.viewClientAccount },
       { icon: "trash-2-outline", text: "", rowclick:this.deleteClientAccount }
@@ -30,8 +36,8 @@ export class ClientsComponent implements OnInit {
     })
   }
 
-  viewClientAccount = (clientAccount: ClientAccount) =>{
-    console.log(alert(JSON.stringify(clientAccount)));
+  viewClientAccount = (clientAccount: ClientAccount) => {
+    this._router.navigate(["invoices", clientAccount.clientAccountId]);
   }
 
   deleteClientAccount = (clientAccount: ClientAccount)=> {

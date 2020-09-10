@@ -14,6 +14,9 @@ import { ClientsRouteResolverService } from './routeResolvers/clients-route-reso
 import { ClientService } from './services/client.service';
 import { IconButtonComponent } from './components/icon-button/icon-button.component';
 import { CreateClientAccountComponent } from './components/create-client-account/create-client-account.component';
+import { InvoiceService } from './services/invoice.service';
+import { AccountInvoicesComponent } from './components/account-invoices/account-invoices.component';
+import { CreateClientInvoiceComponent } from './components/create-client-invoice/create-client-invoice.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +24,9 @@ import { CreateClientAccountComponent } from './components/create-client-account
     TableComponent,
     ClientsComponent,
     IconButtonComponent,
-    CreateClientAccountComponent
+    CreateClientAccountComponent,
+    AccountInvoicesComponent,
+    CreateClientInvoiceComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -30,6 +35,8 @@ import { CreateClientAccountComponent } from './components/create-client-account
     RouterModule.forRoot([
       { path: "clients", component: ClientsComponent, resolve: { clientsAccounts: ClientsRouteResolverService } },
       { path: "createclient", component: CreateClientAccountComponent },
+      { path: "createinvoice/:clientId", component: CreateClientInvoiceComponent },
+      { path: "invoices/:clientId", component: AccountInvoicesComponent },
       { path: '', pathMatch: 'full', redirectTo: "clients" },
     ], { useHash:true }),
     BrowserAnimationsModule,
@@ -41,7 +48,8 @@ import { CreateClientAccountComponent } from './components/create-client-account
   ],
   providers: [
     ClientsRouteResolverService,
-    ClientService
+    ClientService,
+    InvoiceService
   ],
   bootstrap: [AppComponent]
 })

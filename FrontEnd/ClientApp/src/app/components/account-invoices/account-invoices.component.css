@@ -1,0 +1,7 @@
+.app-invoices-button-container {
+  display: flex;
+  flex-direction: row-reverse;
+  width: 80%;
+  margin: auto;
+  padding: 1em;
+}
