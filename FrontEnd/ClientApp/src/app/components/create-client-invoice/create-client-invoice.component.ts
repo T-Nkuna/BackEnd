@@ -37,7 +37,7 @@ export class CreateClientInvoiceComponent implements OnInit {
   }
 
   submitClicked(formIsValid: boolean) {
-    if (!formIsValid) {
+    if (!true) {
       alert("Amount Must be Numeric")
     }
     else {

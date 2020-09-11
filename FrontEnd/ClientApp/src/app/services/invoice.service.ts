@@ -8,7 +8,7 @@ export class InvoiceService {
 
   serviceUrl = "";
   constructor(private _httpClient: HttpClient, private _configurationService: ConfigurationService) {
-    this.serviceUrl = `${this._configurationService.serviceHost}/clientinvoices`;
+    this.serviceUrl = `${this._configurationService.serviceHost}/api/clientinvoices`;
   }
 
   getClientInvoices(clientId: number) {

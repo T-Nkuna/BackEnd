@@ -47,13 +47,11 @@ export class CreateClientAccountComponent implements OnInit {
         else {
           alert("Item not saved");
         }
+        this.fields.forEach(field => { field.value = "" });
       })
       .catch(() => {
         alert("Unkown Error Occured");
-      })
-      .finally(() => {
-        this.fields.forEach(field => { field.value = "" });
-      })
+      });
   }
 
   backClicked() {
