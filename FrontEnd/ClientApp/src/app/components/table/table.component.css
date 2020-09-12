@@ -16,7 +16,7 @@ table.app-table{
       border-right: 1px solid gray;
     }
 
-    table.app-table  tr{
+    table.app-table  tr td{
         padding:1em;
     }
 

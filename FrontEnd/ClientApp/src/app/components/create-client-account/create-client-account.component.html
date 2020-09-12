@@ -1,7 +1,7 @@
 <form  class='app-create-client-account-form'(ngSubmit)="submitClicked()">
    <div class="app-create-client-account-form-form-field" *ngFor="let  field of fields">
-     <label>{{field.displayName}}</label><input [name]="field.name" [(ngModel)]="field.value"/>
+     <label>{{field.displayName}}</label><input nbInput [name]="field.name" [(ngModel)]="field.value"/>
    </div>
-   <div class="app-create-client-account-form-form-field"><button (click)="backClicked()" type="button">Back</button><button nbButton>Submit</button></div>
+   <div class="app-create-client-account-form-form-field"><button nbButton status='basic' (click)="backClicked()" type="button">Back</button><button nbButton>Submit</button></div>
   
 </form>

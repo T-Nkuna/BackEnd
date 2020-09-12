@@ -6,7 +6,7 @@ import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NbThemeModule, NbLayoutModule, NbSidebarModule, NbButtonModule,NbIconModule } from '@nebular/theme';
+import { NbThemeModule, NbLayoutModule, NbSidebarModule, NbButtonModule,NbIconModule,NbInputModule } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { TableComponent } from './components/table/table.component';
 import { ClientsComponent } from './components/clients/clients.component';
@@ -44,7 +44,8 @@ import { CreateClientInvoiceComponent } from './components/create-client-invoice
     NbLayoutModule,
     NbEvaIconsModule,
     NbSidebarModule,
-    NbButtonModule,NbIconModule
+    NbButtonModule, NbIconModule,
+    NbInputModule
   ],
   providers: [
     ClientsRouteResolverService,

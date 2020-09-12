@@ -41,7 +41,8 @@ export class CreateClientInvoiceComponent implements OnInit {
       alert("Amount Must be Numeric")
     }
     else {
-      this._invoiceService.addInvoiceToClientAccount(this.clientId, (<ClientInvoice>{ invoiceAmount: parseFloat(this.fields[0].value), invoiceOwedAmount: 0 }))
+      let invoiceAmount = parseFloat(this.fields[0].value);
+      this._invoiceService.addInvoiceToClientAccount(this.clientId, (<ClientInvoice>{ invoiceAmount, invoiceOwedAmount: invoiceAmount }))
         .then(num => {
           if (num > 0) {
             alert("Submitted");

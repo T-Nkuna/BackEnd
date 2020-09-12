@@ -19,4 +19,8 @@ export class InvoiceService {
 
     return this._httpClient.put<number>(`${this.serviceUrl}/${clientAccountId}`, invoice).toPromise();
   }
+
+  deleteInvoice(invoiceId: number) {
+    return this._httpClient.delete<number>(`${this.serviceUrl}/${invoiceId}`).toPromise();
+  }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit , Input,AfterViewInit, ViewChild, ElementRef} from '@angular/core';
+import { Component, OnInit , Input,AfterViewInit, ViewChild, ElementRef,SimpleChanges,OnChanges, SimpleChange} from '@angular/core';
 
 export interface RowAction {
   text: string;
@@ -10,7 +10,7 @@ export interface RowAction {
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.css']
 })
-export class TableComponent implements OnInit {
+export class TableComponent implements OnInit, OnChanges {
 
   @Input() rows:any[]=[];
   @Input() actions: RowAction[]=[];
@@ -21,8 +21,17 @@ export class TableComponent implements OnInit {
  
 
   ngOnInit() {
-    this.columnNames = this.rows.length > 0 ? Object.keys(this.rows[0]) : [];
+    //this.columnNames = this.rows.length > 0 ? Object.keys(this.rows[0]) : [];
    
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+
+    if ("rows" in changes && this.columnNames.length==0) {
+      let change: SimpleChange = changes['rows'];
+      this.columnNames = change.currentValue.length > 0 ? Object.keys(change.currentValue[0]) : [];
+
+    }
   }
 
   recordToValues(rec: any) {

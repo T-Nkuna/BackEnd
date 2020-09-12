@@ -14,9 +14,7 @@ import { InvoiceService } from '../../services/invoice.service';
 export class ClientsComponent implements OnInit {
 
   clientAccounts: ClientAccount[] = [];
-  rowActions: RowAction[] = [
-
-  ];
+  rowActions: RowAction[] = [];
   constructor(
     private _activatedRoute: ActivatedRoute,
     private _router: Router,
