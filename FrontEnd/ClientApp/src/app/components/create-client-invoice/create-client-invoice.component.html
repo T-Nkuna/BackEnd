@@ -1,6 +1,6 @@
 <form class='app-create-client-invoice-form' #invoiceForm = "ngForm" (ngSubmit)="submitClicked(invoiceForm.valid)">
   <div class="app-create-client-invoice-form-form-field" *ngFor="let  field of fields">
-    <label>{{field.displayName}}</label><input nbInput [name]="field.name" [(ngModel)]="field.value" pattern="\\d+\\.?\\d+" />
+    <label>{{field.displayName}}</label><input nbInput status="primary" [name]="field.name" [(ngModel)]="field.value" pattern="\\d+\\.?\\d+" />
   </div>
   <div class="app-create-client-invoice-form-form-field"><button nbButton status="basic" (click)="backClicked()" type="button">Back</button><button nbButton>Submit</button></div>
 
