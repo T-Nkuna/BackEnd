@@ -1,9 +1,11 @@
-import { Component, OnInit , Input,AfterViewInit, ViewChild, ElementRef,SimpleChanges,OnChanges, SimpleChange} from '@angular/core';
+import { Component, OnInit , Input,OnChanges,SimpleChanges,SimpleChange, ElementRef} from '@angular/core';
 
 export interface RowAction {
   text: string;
   icon: string;
   rowclick: (rowRecord: any) => void;
+  popupTrigger?: boolean;
+  popupContent?: ElementRef;
 }
 @Component({
   selector: 'app-table',
@@ -13,7 +15,9 @@ export interface RowAction {
 export class TableComponent implements OnInit, OnChanges {
 
   @Input() rows:any[]=[];
-  @Input() actions: RowAction[]=[];
+  @Input() actions: RowAction[] = [];
+  @Input() trackByPropertyName: string = "";
+  popupTriggerType = 'click'
   columnNames = [];
   
   constructor() { }
@@ -21,16 +25,17 @@ export class TableComponent implements OnInit, OnChanges {
  
 
   ngOnInit() {
-    //this.columnNames = this.rows.length > 0 ? Object.keys(this.rows[0]) : [];
+    this.columnNames = this.rows.length > 0 ? Object.keys(this.rows[0]) : [];
    
   }
 
   ngOnChanges(changes: SimpleChanges) {
+    if ("rows" in changes && this.columnNames.length == 0) {
+      this.columnNames = changes["rows"].currentValue.length > 0 ? Object.keys(changes['rows'].currentValue[0]) : [];
+    }
 
-    if ("rows" in changes && this.columnNames.length==0) {
-      let change: SimpleChange = changes['rows'];
-      this.columnNames = change.currentValue.length > 0 ? Object.keys(change.currentValue[0]) : [];
-
+    if ('actions' in changes) {
+      //this.actions = changes['actions'].currentValue;
     }
   }
 
@@ -40,6 +45,10 @@ export class TableComponent implements OnInit, OnChanges {
 
   getPadding() {
     return ({ padding: "1em" });
+  }
+
+  trackByProperty= (index, rec)=> {
+    return rec[this.trackByPropertyName];
   }
 
 }

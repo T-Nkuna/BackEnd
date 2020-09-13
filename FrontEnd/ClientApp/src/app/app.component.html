@@ -4,6 +4,9 @@
     <h4><span>{{configurationService.displayedPageTitle}}</span></h4>
   </nb-layout-header>
   <nb-layout-column>
+    <form>
+      <label>Service Host:</label>&nbsp;<input nbInput status="primary" name="serviceHost" [(ngModel)]="configurationService.serviceHost" readonly />
+    </form>
     <router-outlet></router-outlet>
   </nb-layout-column>
 </nb-layout>

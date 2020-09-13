@@ -1,2 +1,18 @@
 <div class="app-clients-button-container"><app-icon-button [icon]="'plus-outline'" [text]="'New'" (click)="addClientAccount()"></app-icon-button></div>
-<app-table [rows]="clientAccounts" [actions]="rowActions"></app-table>
+<app-table [rows]="clientAccounts" [actions]="rowActions" [trackByPropertyName]="'clientAccountId'"></app-table>
+<ng-template #editClientAccountForm>
+  <form class="app-clients-client-account-form" (ngSubmit)="submitEditClientAccountForm()">
+    <div class="app-clients-client-account-form-field">
+      <label>Name</label><input nbInput status="primary" name="name" [(ngModel)]="popupClientName" />
+    </div>
+    <div class="app-clients-client-account-form-field">
+      <label>Email</label><input nbInput status="primary" name="email" [(ngModel)]="popupClientEmail" />
+    </div>
+    <div class="app-clients-client-account-form-field">
+      <label>Contact No</label><input status='primary' nbInput name="contactNumber" [(ngModel)]="popupClientContactNo" />
+    </div>
+    <div class="app-clients-client-account-form-field">
+      <button nbButton status="basic">Submit</button>
+    </div>
+  </form>
+</ng-template>

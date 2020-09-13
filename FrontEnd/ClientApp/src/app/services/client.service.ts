@@ -29,5 +29,12 @@ export class ClientService {
     return this._httpClient.post<number>(this.serviceUrl, clientAccount).toPromise();
   }
 
+  updateClientAccount(newData: ClientAccount) {
+
+    const { email, contactNo,name } = newData;
+    return this._httpClient.put<number>(`${this.serviceUrl}/${newData.clientAccountId}`, { email, contactNo,name }).toPromise();
+
+  }
+
 
 }

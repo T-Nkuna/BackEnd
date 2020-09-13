@@ -1,37 +1,56 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild,ElementRef,AfterViewInit } from '@angular/core';
 import { ActivatedRoute,Router } from '@angular/router';
 import { ConfigurationService } from '../../services/configuration.service';
 import { ClientAccount } from '../../models/ClientAccount';
 import { RowAction } from '../table/table.component';
 import { ClientService } from '../../services/client.service';
 import { InvoiceService } from '../../services/invoice.service';
+import { NbPopoverDirective } from '@nebular/theme';
 
 @Component({
   selector: 'app-clients',
   templateUrl: './clients.component.html',
   styleUrls: ['./clients.component.css']
 })
-export class ClientsComponent implements OnInit {
+export class ClientsComponent implements OnInit , AfterViewInit{
 
   clientAccounts: ClientAccount[] = [];
   rowActions: RowAction[] = [];
+  selectedClientAcount: ClientAccount;
+  popupClientEmail: string;
+  popupClientContactNo: string;
+  popupClientName: string;
+  @ViewChild('editClientAccountForm', { static: false }) editClientAccountForm: ElementRef;
+  tableIsReady: boolean= false;
   constructor(
     private _activatedRoute: ActivatedRoute,
     private _router: Router,
-    private _congigurationService: ConfigurationService,
+    private _configurationService: ConfigurationService,
     private _clientService: ClientService
-    ) {
+  )
+  {
     this.rowActions = [
       { icon: "eye-outline", text: "", rowclick: this.viewClientAccount },
-      { icon: "trash-2-outline", text: "", rowclick:this.deleteClientAccount }
-    ]
+      { icon: "edit-outline", text: "", rowclick: this.updateClientAccount },
+      { icon: "trash-2-outline", text: "", rowclick: this.deleteClientAccount }
+    ];
   }
 
   ngOnInit() {
-    this._congigurationService.displayedPageTitle = "Clients";
+    this._configurationService.displayedPageTitle = "Clients";
     this._activatedRoute.data.subscribe(data => {
       this.clientAccounts = data.clientsAccounts;
+     
     })
+  }
+
+  ngAfterViewInit() {
+    this.rowActions = this.getUpdatedRowActions(this.editClientAccountForm);
+  }
+ 
+  getUpdatedRowActions(templateRef: ElementRef) {
+  
+    return this.rowActions.map((rowAction, index) => index == 1 ? { ...rowAction, popupTrigger: true, popupContent: templateRef } : rowAction);
   }
 
   viewClientAccount = (clientAccount: ClientAccount) => {
@@ -57,4 +76,32 @@ export class ClientsComponent implements OnInit {
     this._router.navigate(["createclient"]);
   }
 
+  updateClientAccount = (clientAccount: ClientAccount) => {
+    this.selectedClientAcount = clientAccount;
+    this.popupClientName = this.selectedClientAcount.name;
+    this.popupClientEmail = this.selectedClientAcount.email;
+    this.popupClientContactNo = this.selectedClientAcount.contactNo;
+  }
+
+  submitEditClientAccountForm() {
+
+    let newRec = { ...this.selectedClientAcount, email: this.popupClientEmail, contactNo: this.popupClientContactNo, name: this.popupClientName };
+    this._clientService
+      .updateClientAccount(newRec)
+      .then(num => {
+        if (num > 0) {
+          alert('Submitted !');
+          this.popupClientContactNo = "";
+          this.popupClientEmail = "";
+          this.popupClientName = "";
+          this.clientAccounts = this.clientAccounts.map((rec) => rec.clientAccountId == newRec.clientAccountId ? { ...rec, ...newRec } : rec);
+        }
+        else {
+          alert("No changes detected");
+        }
+      }).catch(() => {
+        alert("Unkown Error!");
+      })
+    
+  }
 }

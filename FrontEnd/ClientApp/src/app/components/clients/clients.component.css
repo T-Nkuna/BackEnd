@@ -6,3 +6,16 @@
     margin:auto;
     padding:1em;
 }
+
+.app-clients-client-account-form-field {
+  display: grid;
+  grid-template-columns: 128px auto;
+  grid-column-gap: 0.25em;
+  padding:0.25em;
+}
+
+.app-clients-client-account-form{
+    
+    padding:1em;
+    width:auto;
+}
