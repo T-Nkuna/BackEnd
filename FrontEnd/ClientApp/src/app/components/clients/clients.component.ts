@@ -1,8 +1,8 @@
-import { Component, OnInit, ViewChild,ElementRef,AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild,ElementRef,AfterViewInit,SimpleChanges, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute,Router } from '@angular/router';
 import { ConfigurationService } from '../../services/configuration.service';
 import { ClientAccount } from '../../models/ClientAccount';
-import { RowAction } from '../table/table.component';
+import { RowAction, TableComponent } from '../table/table.component';
 import { ClientService } from '../../services/client.service';
 import { InvoiceService } from '../../services/invoice.service';
 import { NbPopoverDirective } from '@nebular/theme';
@@ -21,12 +21,14 @@ export class ClientsComponent implements OnInit , AfterViewInit{
   popupClientContactNo: string;
   popupClientName: string;
   @ViewChild('editClientAccountForm', { static: false }) editClientAccountForm: ElementRef;
+  @ViewChild('clientAccountsTable', { static: false }) clientAccountsTable: TableComponent;
   tableIsReady: boolean= false;
   constructor(
     private _activatedRoute: ActivatedRoute,
     private _router: Router,
     private _configurationService: ConfigurationService,
-    private _clientService: ClientService
+    private _clientService: ClientService,
+    private _cd:ChangeDetectorRef
   )
   {
     this.rowActions = [
@@ -46,6 +48,7 @@ export class ClientsComponent implements OnInit , AfterViewInit{
 
   ngAfterViewInit() {
     this.rowActions = this.getUpdatedRowActions(this.editClientAccountForm);
+    this._cd.detectChanges();
   }
  
   getUpdatedRowActions(templateRef: ElementRef) {
