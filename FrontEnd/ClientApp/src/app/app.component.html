@@ -1,12 +1,13 @@
 <nb-layout>
 
   <nb-layout-header fixed>
-    <h4><span>{{configurationService.displayedPageTitle}}</span></h4>
+    <div style="display:flex;justify-content:space-between;align-items:center;width:100%;">
+      <h4><span>{{configurationService.displayedPageTitle}}</span></h4>
+      <nb-icon (click)="signOut()" *ngIf="configurationService.displayedPageTitle!='Login' && configurationService.displayedPageTitle!='Register'" icon="power-outline" style="cursor:pointer"></nb-icon>
+    </div>
+   
   </nb-layout-header>
   <nb-layout-column>
-    <form>
-      <label>Service Host:</label>&nbsp;<input nbInput status="primary" name="serviceHost" [(ngModel)]="configurationService.serviceHost" readonly />
-    </form>
     <router-outlet></router-outlet>
   </nb-layout-column>
 </nb-layout>

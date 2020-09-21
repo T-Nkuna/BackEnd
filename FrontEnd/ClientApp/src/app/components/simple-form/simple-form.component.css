@@ -1,0 +1,19 @@
+.app-simple-form-container{
+    display:flex;
+    width:80%;
+    max-width:640px;
+    flex-direction:column;
+    align-items:center;
+}
+
+.app-simple-form-field{
+    display:grid;
+    width:100%;
+    grid-template-columns: 30% 65%;
+    grid-column-gap:0.25em;
+    padding:0.25em;
+}
+
+.app-simple-form-button-container >button{
+    margin:0.5em;
+}

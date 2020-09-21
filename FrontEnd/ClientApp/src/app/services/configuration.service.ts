@@ -5,8 +5,20 @@ import { Injectable } from '@angular/core';
 })
 export class ConfigurationService {
 
-  serviceHost = "https://localhost:44386";
-
+  
+  private _env = "dev";
   displayedPageTitle = "Clients";
   constructor() { }
+
+  get isAuthenticated() {
+    return parseInt(sessionStorage.getItem("authenticated"));
+  }
+
+  set isAuthenticated(value) {
+     sessionStorage.setItem("authenticated", isNaN(value)?"0":value.toString());
+  }
+
+  get serviceHost() {
+    return this._env === "dev" ? "http://localhost:44309" : "https://invoice.etiocs.co.za";
+  }
 }

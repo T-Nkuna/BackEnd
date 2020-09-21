@@ -1,0 +1,15 @@
+<form class="app-simple-form-container" (ngSubmit)="onFormSubmit(appSimpleForm.value)" #appSimpleForm ="ngForm">
+  <ng-container *ngFor="let field of formFields">
+    <div class="app-simple-form-field" [ngSwitch]="field.tagName">
+      <label>{{field.displayName}}</label>
+      <input *ngSwitchCase="'input'" nbInput status="primary" [name]="field.name" [(ngModel)]="field.value" [type]="field.type" [required]="field.required"/>
+      <nb-select *ngSwitchCase="'select'" status="primary" [name]="field.name" [(ngModel)]="field.value">
+        <nb-option *ngFor="let option of field.options;let i =index;" [value]="field.values[i]">{{option}}</nb-option>
+      </nb-select>
+    </div>
+  </ng-container>
+  <div class="app-simple-form-button-container">
+    <ng-content select=".app-simple-form-button"></ng-content>
+  </div>
+  
+</form>

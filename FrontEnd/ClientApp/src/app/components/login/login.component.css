@@ -1,0 +1,28 @@
+.app-login-form{
+    width:80%;
+    max-width:640px;
+    margin:auto;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+
+.app-login-form-field{
+    display:grid;
+    grid-template-columns:20% 65%;
+    width:100%;
+    grid-column-gap:0.25em;
+    padding:0.25em;
+}
+
+.app-login-form-field * {
+    box-sizing:border-box;
+}
+
+.app-login-form-button-container{
+    display:flex;
+}
+
+.app-login-form-button-container>*{
+    margin:0.25em;
+}

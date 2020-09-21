@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using BackEnd.DTOs;
 using BackEnd.Models;
 using BackEnd.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
@@ -52,6 +53,7 @@ namespace BackEnd.Controllers
         }
 
         // PUT api/<ClientAccounts>/5
+        
         [HttpPut("{id}")]
         public int Put(int id, [FromBody] ClientAccountDto value)
         {
@@ -85,6 +87,13 @@ namespace BackEnd.Controllers
                 return 0;
             }
             
+        }
+
+        [HttpGet("signout")]
+        public async Task<int> SignOut()
+        {
+            await _signInManager.SignOutAsync();
+            return 1;
         }
     }
 }

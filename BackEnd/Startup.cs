@@ -8,6 +8,7 @@ using BackEnd.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -36,14 +37,30 @@ namespace BackEnd
             });
             services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
             {
-                builder.AllowAnyOrigin()
+                builder.WithOrigins(new string[] { "http://localhost:4200"})
                        .AllowAnyMethod()
-                       .AllowAnyHeader();
+                       .AllowAnyHeader()
+                       .AllowCredentials();
+       
             }));
+            services.ConfigureApplicationCookie(config =>
+            {
+                config.Cookie.Name = "Identity.Auth.Cookie";
+                config.LoginPath = "/clientaccounts/authenticate";
+                config.Cookie.SameSite = Microsoft.AspNetCore.Http.SameSiteMode.None;
+            });
+            services.AddIdentity<IdentityUser, IdentityRole>(options =>
+            {
+                options.Password.RequireDigit = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequiredLength = 4;
+                options.User.RequireUniqueEmail = true;
+                
+            }).AddDefaultTokenProviders().AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddAutoMapper(typeof(Startup));
             services.AddScoped<IClientAccountsService, ClientAccountsService>();
             services.AddScoped<IClientInvoicesService, ClientInvoicesService>();
-          
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

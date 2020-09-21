@@ -1,0 +1,13 @@
+<form class="app-login-form" (ngSubmit)="loginClicked(loginForm.value)" #loginForm="ngForm">
+    <ng-container *ngFor="let field of formFields">
+      <div class="app-login-form-field">
+        <label>{{field.displayName}}</label>
+        <input nbInput status="primary" [type]="field.type" [name]="field.name" [(ngModel)]="field.value" />
+      </div>  
+    </ng-container>
+    <div class="app-login-form-button-container">
+      <button nbButton status="primary">Login</button>
+      <button (click)="registerClicked()" nbButton status="basic" type="button">Register</button>
+    </div>
+   
+</form>
