@@ -51,8 +51,8 @@ namespace ClientInvoicing.Services
                 IdentityUser addedUser = await _userManager.FindByEmailAsync(newUser.Email);
                 cAccount.User = addedUser; //link account to user
                 var token = await _userManager.GenerateEmailConfirmationTokenAsync(addedUser);
-                var link = url.Action(nameof(ClientInvoicing.Controllers.ClientAccountsController.VerifyEmail), "ClientAccounts", new { userId = addedUser.Id, code = token }, protocol, host+":44309");
-                await _mailService.SendAsync(newUser.Email,"Email Verification",$"Click <a href='{link}'>Here</a> to verify your Email",true);
+                var link = url.Action(nameof(ClientInvoicing.Controllers.ClientAccountsController.VerifyEmail), "ClientAccounts", new { userId = addedUser.Id, code = token }, protocol, host);
+               // await _mailService.SendAsync(newUser.Email,"Email Verification",$"Click <a href='{link}'>Here</a> to verify your Email",true);
                 _dbContext.ClientAccounts.Add(cAccount);
                 return await _dbContext.SaveChangesAsync();
             }
