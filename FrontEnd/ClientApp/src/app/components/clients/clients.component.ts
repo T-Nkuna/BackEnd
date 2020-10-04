@@ -20,8 +20,8 @@ export class ClientsComponent implements OnInit , AfterViewInit{
   popupClientEmail: string;
   popupClientContactNo: string;
   popupClientName: string;
-  @ViewChild('editClientAccountForm', { static: false }) editClientAccountForm: ElementRef;
-  @ViewChild('clientAccountsTable', { static: false }) clientAccountsTable: TableComponent;
+  @ViewChild('editClientAccountForm') editClientAccountForm: ElementRef;
+  @ViewChild('clientAccountsTable') clientAccountsTable: TableComponent;
   tableIsReady: boolean= false;
   constructor(
     private _activatedRoute: ActivatedRoute,
