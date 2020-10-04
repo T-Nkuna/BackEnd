@@ -1,15 +1,15 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using BackEnd.DataAccess;
-using BackEnd.DTOs;
-using BackEnd.Models;
+using ClientInvoicing.DataAccess;
+using ClientInvoicing.DTOs;
+using ClientInvoicing.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices.ComTypes;
 using System.Threading.Tasks;
 
-namespace BackEnd.Services
+namespace ClientInvoicing.Services
 {
     public class ClientInvoicesService:IClientInvoicesService
     {

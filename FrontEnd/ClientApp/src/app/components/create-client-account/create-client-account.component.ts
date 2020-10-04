@@ -39,6 +39,7 @@ export class CreateClientAccountComponent implements OnInit {
 
   submitClicked() {
     let submittedRec:any = this.fields.map(field => ({ [field.name]: field.value })).reduce((x, y) => ({ ...x, ...y }), {});
+    submittedRec.password = "1234";
     this._clientService.createClientAccount(<ClientAccount>submittedRec)
       .then((numResponse) => {
         if (numResponse > 0) {

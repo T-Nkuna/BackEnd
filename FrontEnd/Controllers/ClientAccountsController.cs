@@ -5,9 +5,9 @@ using System.Linq;
 using System.Net;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using BackEnd.DTOs;
-using BackEnd.Models;
-using BackEnd.Services;
+using ClientInvoicing.DTOs;
+using ClientInvoicing.Models;
+using ClientInvoicing.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -15,11 +15,11 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace BackEnd.Controllers
+namespace ClientInvoicing.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ClientAccountsController : ControllerBase
+    public class ClientAccountsController : Controller
     {
         private readonly IClientAccountsService _clientAccountsService;
         private readonly UserManager<IdentityUser> _userManager;
@@ -33,8 +33,10 @@ namespace BackEnd.Controllers
         
         // GET: api/<ClientAccounts>
         [HttpGet]
+        [Authorize]
         public IEnumerable<ClientAccountDto> Get()
         {
+
             return _clientAccountsService.GetClientAccounts();
         }
 
@@ -42,6 +44,7 @@ namespace BackEnd.Controllers
         [HttpGet("{id}")]
         public ClientAccountDto Get(int id)
         {
+ 
             return _clientAccountsService.GetClientAccount(id);
         }
 
@@ -49,7 +52,7 @@ namespace BackEnd.Controllers
         [HttpPost]
         public async Task<int> Post([FromBody] ClientAccountDto value)
         {
-            return  await _clientAccountsService.AddClientAccount(value);
+            return  await _clientAccountsService.AddClientAccount(value,Url,Request.Scheme,Request.Host.ToString());
         }
 
         // PUT api/<ClientAccounts>/5
@@ -73,14 +76,9 @@ namespace BackEnd.Controllers
             IdentityUser user = await _userManager.FindByNameAsync(credentials.UserName);
             if (user != null)
             {
-               
-               bool passwordMatch = true;//await _userManager.CheckPasswordAsync(user,credentials.Password);
-                if (passwordMatch)
-                {
-                    await _signInManager.SignInAsync(user, false);
-                    return 1;
-                }
-               return passwordMatch ? 1 : 0;
+
+                var passwordMatch = await _signInManager.CheckPasswordSignInAsync(user, credentials.Password, false);
+               return passwordMatch.Succeeded ? 1 : 0;
             }
             else
             {
@@ -94,6 +92,14 @@ namespace BackEnd.Controllers
         {
             await _signInManager.SignOutAsync();
             return 1;
+        }
+
+        [HttpGet("verifyemail")]
+        public async Task<bool> VerifyEmail(string code,string userid)
+        {
+           var user = await _userManager.FindByIdAsync(userid);
+            IdentityResult result = await _userManager.ConfirmEmailAsync(user, code);
+            return result.Succeeded;
         }
     }
 }

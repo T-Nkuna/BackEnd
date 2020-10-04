@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace BackEnd.Migrations
+namespace ClientInvoicing.Migrations
 {
     public partial class identityTables : Migration
     {

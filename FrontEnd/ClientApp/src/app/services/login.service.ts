@@ -7,12 +7,12 @@ export class LoginService {
 
   serviceUrl = "";
   constructor(private _configurationService: ConfigurationService, private _httpClient: HttpClient) {
-    this.serviceUrl = `${this._configurationService.serviceHost}/api/clientaccounts`;
+    this.serviceUrl = `${this._configurationService.serviceHost}/Account`;
   }
 
   login(username: string, password: string) {
 
-    return this._httpClient.post<number>(`${this.serviceUrl}/authenticate`, { username, password }, { withCredentials:true }).toPromise();
+    return this._httpClient.post<number>(`${this.serviceUrl}/login`, { username, password }).toPromise();
  
   }
 

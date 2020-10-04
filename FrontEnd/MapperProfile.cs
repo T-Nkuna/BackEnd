@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
-using BackEnd.DTOs;
-using BackEnd.Models;
+using ClientInvoicing.DTOs;
+using ClientInvoicing.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BackEnd
+namespace ClientInvoicing
 {
     public class MapperProfile:Profile
     {

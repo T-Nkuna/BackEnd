@@ -3,4 +3,5 @@ export interface ClientAccount{
   contactNo: string;
   email: string;
   clientAccountId: number;
+  password?: string;
 }

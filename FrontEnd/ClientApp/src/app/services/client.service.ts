@@ -13,7 +13,7 @@ export class ClientService {
   }
 
   getClientAccounts() {
-    return this._httpClient.get<ClientAccount[]>(this.serviceUrl).toPromise();
+    return this._httpClient.get<ClientAccount[]>(this.serviceUrl, { withCredentials:true }).toPromise();
   }
 
   viewClientAccountInvoices(clientAccountId: number) {

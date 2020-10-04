@@ -1,4 +1,4 @@
-﻿namespace BackEnd.Services
+﻿namespace ClientInvoicing.Services
 {
     internal class ApplicationDatabaseContext_dbContext
     {

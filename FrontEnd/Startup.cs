@@ -1,8 +1,10 @@
 using AutoMapper;
-using BackEnd.DataAccess;
-using BackEnd.Services;
+using ClientInvoicing.DataAccess;
+using ClientInvoicing.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
@@ -10,6 +12,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using NETCore.MailKit.Extensions;
+using NETCore.MailKit.Infrastructure.Internal;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace FrontEnd
 {
@@ -35,25 +41,32 @@ namespace FrontEnd
             {
                 configuration.RootPath = "ClientApp/dist";
             });
-            services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
+           /* services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
             {
                 builder.WithOrigins(new string[] { "http://localhost:4200" })
                        .AllowAnyMethod()
                        .AllowAnyHeader()
                        .AllowCredentials();
 
-            }));
+            }));*/
             services.ConfigureApplicationCookie(config =>
             {
                 config.Cookie.Name = "Identity.Auth.Cookie";
-                config.LoginPath = "/clientaccounts/authenticate";
-                config.Cookie.SameSite = Microsoft.AspNetCore.Http.SameSiteMode.None;
+               config.LoginPath = "/Account/Login";
+           
+            });
+            services.AddAuthorization();
+            services.AddMailKit(optionsBuilder => {
+                
+                optionsBuilder.UseMailKit(Configuration.GetSection("Email").Get<MailKitOptions>());
             });
             services.AddIdentity<IdentityUser, IdentityRole>(options =>
             {
                 options.Password.RequireDigit = false;
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequiredLength = 4;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireUppercase = false;
                 options.User.RequireUniqueEmail = true;
 
             }).AddDefaultTokenProviders().AddEntityFrameworkStores<ApplicationDbContext>();
@@ -85,8 +98,9 @@ namespace FrontEnd
             }
 
             app.UseRouting();
+            app.UseAuthentication();
             app.UseAuthorization();
-            app.UseCors("MyPolicy");
+            //app.UseCors("MyPolicy");
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

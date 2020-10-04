@@ -1,4 +1,4 @@
-﻿using BackEnd.Models;
+﻿using ClientInvoicing.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BackEnd.DataAccess
+namespace ClientInvoicing.DataAccess
 {
     public class ApplicationDbContext:IdentityDbContext
     {

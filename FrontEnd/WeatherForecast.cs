@@ -1,6 +1,6 @@
 using System;
 
-namespace BackEnd
+namespace ClientInvoicing
 {
     public class WeatherForecast
     {

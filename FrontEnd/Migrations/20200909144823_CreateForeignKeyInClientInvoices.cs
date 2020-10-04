@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace BackEnd.Migrations
+namespace ClientInvoicing.Migrations
 {
     public partial class CreateForeignKeyInClientInvoices : Migration
     {

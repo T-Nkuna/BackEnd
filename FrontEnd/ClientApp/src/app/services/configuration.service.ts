@@ -19,6 +19,6 @@ export class ConfigurationService {
   }
 
   get serviceHost() {
-    return this._env === "dev" ? "http://localhost:44309" : "https://invoice.etiocs.co.za";
+    return this._env === "dev" ? "https://localhost:44309" : "https://invoice.etiocs.co.za";
   }
 }
